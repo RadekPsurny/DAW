@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="cs">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Byt Novobranská 20, Brno</title>
+    <meta
+      name="description"
+      content="Jednoduchá nabídka bytu k pronájmu v centru Brna, Novobranská 20. Fotogalerie, interaktivní půdorys, cena a mapa."
+    >
+    <link rel="preload" href="assets/photos/vetsi_pokoj.jpg" as="image">
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js" defer></script>
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="#top" aria-label="Novobranská 20 nahoře">Novobranská 20</a>
+      <nav class="top-nav" aria-label="Hlavní navigace">
+        <a href="#pudorys">Plán</a>
+        <a href="#info">Info</a>
+        <a href="#mapa">Mapa</a>
+      </nav>
+    </header>
+
+    <main id="top">
+      <section class="gallery-section" aria-labelledby="gallery-title">
+        <figure class="gallery">
+          <img
+            id="galleryImage"
+            src="assets/photos/pruhled_bytem.jpg"
+            width="1350"
+            height="1800"
+            alt="Průhled přes dveře mezi místnostmi bytu"
+          >
+          <figcaption class="gallery-caption">
+            <p class="eyebrow">Pronájem v centru Brna</p>
+            <h1 id="gallery-title">Byt na Novobranské</h1>
+            <p id="galleryCaption">90 m², 1. patro, 2+1.</p>
+            <div class="caption-meta" aria-label="Základní informace">
+              <span>23 000 Kč / měsíc</span>
+              <span>Hlavák cca 3 minuty pěšky</span>
+            </div>
+          </figcaption>
+          <button class="gallery-control gallery-control--prev" type="button" aria-label="Předchozí fotka">
+            <span aria-hidden="true">‹</span>
+          </button>
+          <button class="gallery-control gallery-control--next" type="button" aria-label="Další fotka">
+            <span aria-hidden="true">›</span>
+          </button>
+        </figure>
+
+        <div class="thumb-strip" role="listbox" aria-label="Fotky bytu">
+          <button class="thumb" type="button" data-photo-id="vetsi_pokoj" role="option" aria-selected="false" aria-label="Velký pokoj">
+            <img src="assets/thumbs/vetsi_pokoj.jpg" width="480" height="360" alt="">
+            <span>Velký pokoj</span>
+          </button>
+          <button class="thumb" type="button" data-photo-id="mensi_pokoj" role="option" aria-selected="false" aria-label="Menší pokoj">
+            <img src="assets/thumbs/mensi_pokoj.jpg" width="480" height="360" alt="">
+            <span>Menší pokoj</span>
+          </button>
+          <button class="thumb" type="button" data-photo-id="kuchyn" role="option" aria-selected="false" aria-label="Kuchyň">
+            <img src="assets/thumbs/kuchyn.jpg" width="480" height="360" alt="">
+            <span>Kuchyň</span>
+          </button>
+          <button class="thumb is-active" type="button" data-photo-id="pruhled_bytem" role="option" aria-selected="true" aria-label="Průhled bytem">
+            <img src="assets/thumbs/pruhled_bytem.jpg" width="360" height="480" alt="">
+            <span>Průhled</span>
+          </button>
+          <button class="thumb" type="button" data-photo-id="chodba" role="option" aria-selected="false" aria-label="Chodba">
+            <img src="assets/thumbs/chodba.jpg" width="480" height="360" alt="">
+            <span>Chodba</span>
+          </button>
+          <button class="thumb" type="button" data-photo-id="koupelna" role="option" aria-selected="false" aria-label="Koupelna">
+            <img src="assets/thumbs/koupelna.jpg" width="480" height="360" alt="">
+            <span>Koupelna</span>
+          </button>
+          <button class="thumb" type="button" data-photo-id="zachod" role="option" aria-selected="false" aria-label="Záchod se sprchovým koutem">
+            <img src="assets/thumbs/zachod.jpg" width="360" height="480" alt="">
+            <span>Záchod</span>
+          </button>
+        </div>
+      </section>
+
+      <section class="tour-section" id="pudorys" aria-labelledby="tour-title">
+        <div class="section-heading">
+          <h2 id="tour-title">Půdorys s úhly pohledu</h2>
+        </div>
+
+        <div class="tour-layout">
+          <div class="floorplan-shell">
+            <img
+              class="floorplan"
+              src="assets/photos/pudorys.jpg"
+              width="1920"
+              height="1080"
+              alt="Půdorys bytu Novobranská 20"
+            >
+
+            <button
+              class="hotspot"
+              type="button"
+              data-photo-id="vetsi_pokoj"
+              style="--x: 27.7%; --y: 66.9%; --angle: 245deg;"
+              aria-label="Fotka z velkého pokoje"
+            >
+              <span class="view-cone" aria-hidden="true"></span>
+              <span class="dot" aria-hidden="true"></span>
+            </button>
+            <button
+              class="hotspot"
+              type="button"
+              data-photo-id="mensi_pokoj"
+              style="--x: 83.2%; --y: 54.7%; --angle: 250deg;"
+              aria-label="Fotka z menšího pokoje"
+            >
+              <span class="view-cone" aria-hidden="true"></span>
+              <span class="dot" aria-hidden="true"></span>
+            </button>
+            <button
+              class="hotspot"
+              type="button"
+              data-photo-id="kuchyn"
+              style="--x: 46.5%; --y: 21.7%; --angle: 96deg;"
+              aria-label="Fotka z kuchyně"
+            >
+              <span class="view-cone" aria-hidden="true"></span>
+              <span class="dot" aria-hidden="true"></span>
+            </button>
+            <button
+              class="hotspot is-active"
+              type="button"
+              data-photo-id="pruhled_bytem"
+              style="--x: 23.1%; --y: 36.7%; --angle: 358deg;"
+              aria-label="Průhled bytem"
+            >
+              <span class="view-cone" aria-hidden="true"></span>
+              <span class="dot" aria-hidden="true"></span>
+            </button>
+            <button
+              class="hotspot"
+              type="button"
+              data-photo-id="chodba"
+              style="--x: 90.9%; --y: 73.1%; --angle: 176deg;"
+              aria-label="Fotka z chodby"
+            >
+              <span class="view-cone" aria-hidden="true"></span>
+              <span class="dot" aria-hidden="true"></span>
+            </button>
+            <button
+              class="hotspot"
+              type="button"
+              data-photo-id="koupelna"
+              style="--x: 50.8%; --y: 72.4%; --angle: 181deg;"
+              aria-label="Fotka z koupelny"
+            >
+              <span class="view-cone" aria-hidden="true"></span>
+              <span class="dot" aria-hidden="true"></span>
+            </button>
+            <button
+              class="hotspot"
+              type="button"
+              data-photo-id="zachod"
+              style="--x: 83.0%; --y: 82.9%; --angle: 62deg;"
+              aria-label="Fotka ze záchodu"
+            >
+              <span class="view-cone" aria-hidden="true"></span>
+              <span class="dot" aria-hidden="true"></span>
+            </button>
+          </div>
+
+          <aside class="tour-preview" aria-live="polite">
+            <img
+              id="tourImage"
+              src="assets/photos/pruhled_bytem.jpg"
+              width="1350"
+              height="1800"
+              alt="Průhled přes dveře mezi místnostmi bytu"
+            >
+            <div class="tour-preview-copy">
+              <h3 id="tourRoom">Průhled bytem</h3>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <section class="info-section" id="info" aria-labelledby="info-title">
+        <div class="section-heading">
+          <h2 id="info-title">Co je dobré vědět</h2>
+        </div>
+
+        <div class="intro-copy">
+          <p>
+            Byt je přímo v centru na Novobranské. Na hlavní nádraží je to zhruba 3 minuty pěšky,
+            na autobusové nádraží u Grandu asi minuta. Obchody, služby a MHD jsou hned po ruce.
+          </p>
+          <p>
+            Uvnitř jsou vysoké stropy, parkety a okna do tiché ulice bez provozu. Dispozice je
+            jednoduchá: první větší neprůchozí pokoj, druhý menší neprůchozí pokoj, kuchyň,
+            koupelna a samostatné WC se sprchovým koutem.
+          </p>
+        </div>
+
+        <dl class="facts-grid">
+          <div>
+            <dt>Výměra</dt>
+            <dd>90 m²</dd>
+          </div>
+          <div>
+            <dt>Patro</dt>
+            <dd>1. patro bez výtahu</dd>
+          </div>
+          <div>
+            <dt>Sklep / balkon</dt>
+            <dd>Žádný sklep ani balkon</dd>
+          </div>
+          <div>
+            <dt>Internet</dt>
+            <dd>Přes modem se SIM, bez optiky</dd>
+          </div>
+          <div>
+            <dt>WC</dt>
+            <dd>Samostatné, se sprchovým koutem</dd>
+          </div>
+          <div>
+            <dt>Pro koho</dt>
+            <dd>Nekuřáci, bez zvířat</dd>
+          </div>
+          <div>
+            <dt>Adresa</dt>
+            <dd>Novobranská 20, Brno</dd>
+          </div>
+        </dl>
+      </section>
+
+      <section class="cost-section" aria-labelledby="cost-title">
+        <div class="cost-layout">
+          <div>
+            <p class="eyebrow">Cena</p>
+            <h2 id="cost-title">23 000 Kč měsíčně</h2>
+            <p class="cost-note">K tomu energie a služby podle aktuálních záloh a počtu lidí.</p>
+          </div>
+
+          <dl class="cost-list" aria-label="Měsíční zálohy">
+            <div>
+              <dt>Plyn</dt>
+              <dd>2 360 Kč</dd>
+            </div>
+            <div>
+              <dt>Elektřina</dt>
+              <dd>1 180 Kč</dd>
+            </div>
+            <div>
+              <dt>Voda</dt>
+              <dd>350 Kč / osoba</dd>
+            </div>
+          </dl>
+        </div>
+      </section>
+
+      <section class="map-section" id="mapa" aria-labelledby="map-title">
+        <div class="section-heading">
+          <p class="eyebrow">Lokalita</p>
+          <h2 id="map-title">Novobranská 20, Brno</h2>
+        </div>
+
+        <div class="map-layout">
+          <iframe
+            class="map-frame"
+            title="Mapa Novobranská 20, Brno"
+            loading="lazy"
+            src="https://www.openstreetmap.org/export/embed.html?bbox=16.6089%2C49.1912%2C16.6169%2C49.1952&amp;layer=mapnik&amp;marker=49.19324665334432%2C16.612944352857237"
+          ></iframe>
+
+          <div class="location-copy">
+            <p>
+              Centrum bez složité logistiky: vlak, autobus, šaliny i obchody jsou v docházkové
+              vzdálenosti. Dům je kousek od Grandu a hlavního nádraží.
+            </p>
+            <div class="map-actions">
+              <a
+                class="button-link"
+                href="https://www.openstreetmap.org/?mlat=49.19324665334432&amp;mlon=16.612944352857237#map=18/49.19324665334432/16.612944352857237"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Otevřít mapu
+              </a>
+              <a
+                class="button-link button-link--secondary"
+                href="https://www.google.com/maps/@?api=1&amp;map_action=pano&amp;viewpoint=49.19324665334432,16.612944352857237"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Pohled z ulice
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>
