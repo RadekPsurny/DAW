@@ -113,6 +113,22 @@ button {
   position: relative;
 }
 
+.gallery::after {
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.68), rgba(0, 0, 0, 0.34) 34%, transparent 68%);
+  bottom: 0;
+  content: "";
+  height: 46%;
+  left: 0;
+  pointer-events: none;
+  position: absolute;
+  right: 0;
+  z-index: 1;
+}
+
+.gallery.gallery--simple::after {
+  display: none;
+}
+
 .gallery > img {
   background: #111;
   cursor: zoom-in;
@@ -629,22 +645,10 @@ dd {
 }
 
 .lightbox-viewport img {
-  cursor: zoom-in;
   display: block;
   max-height: calc(100svh - 88px);
   max-width: calc(100vw - 24px);
   object-fit: contain;
-}
-
-.lightbox-viewport img.is-zoomed {
-  cursor: zoom-out;
-  max-height: none;
-  max-width: none;
-}
-
-.lightbox-viewport.is-zoomed {
-  align-items: start;
-  justify-items: start;
 }
 
 @media (min-width: 680px) {

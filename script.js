@@ -68,7 +68,6 @@ const lightbox = document.querySelector("#lightbox");
 const lightboxImage = document.querySelector("#lightboxImage");
 const lightboxViewport = document.querySelector("#lightboxViewport");
 const lightboxClose = document.querySelector("#lightboxClose");
-const lightboxZoom = document.querySelector("#lightboxZoom");
 
 let activeIndex = 0;
 const heroPhotoId = "pruhled_bytem";
@@ -113,31 +112,18 @@ function setActivePhoto(nextIndex) {
   });
 }
 
-function setLightboxZoom(isZoomed) {
-  lightboxImage.classList.toggle("is-zoomed", isZoomed);
-  lightboxViewport.classList.toggle("is-zoomed", isZoomed);
-  lightboxZoom.setAttribute("aria-label", isZoomed ? "Oddálit fotku" : "Přiblížit fotku");
-  lightboxZoom.querySelector("span").textContent = isZoomed ? "−" : "+";
-
-  if (!isZoomed) {
-    lightboxViewport.scrollTo({ left: 0, top: 0 });
-  }
-}
-
 function openLightbox() {
   const photo = activePhoto();
   lightboxImage.src = photo.src;
   lightboxImage.alt = photo.alt;
   lightbox.hidden = false;
   document.body.classList.add("is-lightbox-open");
-  setLightboxZoom(false);
   lightboxClose.focus();
 }
 
 function closeLightbox() {
   lightbox.hidden = true;
   document.body.classList.remove("is-lightbox-open");
-  setLightboxZoom(false);
   galleryImage.focus();
 }
 
@@ -163,14 +149,6 @@ galleryImage.addEventListener("keydown", (event) => {
 });
 
 lightboxClose.addEventListener("click", closeLightbox);
-
-lightboxZoom.addEventListener("click", () => {
-  setLightboxZoom(!lightboxImage.classList.contains("is-zoomed"));
-});
-
-lightboxImage.addEventListener("click", () => {
-  setLightboxZoom(!lightboxImage.classList.contains("is-zoomed"));
-});
 
 lightboxViewport.addEventListener("click", (event) => {
   if (event.target === lightboxViewport) {
