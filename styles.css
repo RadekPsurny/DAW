@@ -30,6 +30,10 @@ body {
   overflow-x: hidden;
 }
 
+body.is-lightbox-open {
+  overflow: hidden;
+}
+
 img {
   display: block;
   max-width: 100%;
@@ -104,27 +108,16 @@ button {
 
 .gallery {
   background: #111;
-  min-height: calc(100svh - 150px);
   margin: 0;
   overflow: hidden;
   position: relative;
 }
 
-.gallery::after {
-  background:
-    linear-gradient(180deg, rgba(0, 0, 0, 0.18), transparent 28%),
-    linear-gradient(0deg, rgba(0, 0, 0, 0.72), transparent 58%);
-  content: "";
-  inset: 0;
-  pointer-events: none;
-  position: absolute;
-  z-index: 1;
-}
-
 .gallery > img {
-  height: calc(100svh - 150px);
-  min-height: 560px;
-  object-fit: cover;
+  background: #111;
+  cursor: zoom-in;
+  height: min(calc(100svh - 126px), calc(100vw * 4 / 3));
+  object-fit: contain;
   width: 100%;
 }
 
@@ -138,7 +131,6 @@ button {
   padding: 0 18px 24px;
   position: absolute;
   right: 0;
-  text-shadow: 0 2px 24px rgba(0, 0, 0, 0.42);
   z-index: 2;
 }
 
@@ -180,8 +172,8 @@ button {
 }
 
 .caption-meta span {
-  background: rgba(255, 255, 255, 0.16);
-  border: 1px solid rgba(255, 255, 255, 0.24);
+  background: rgba(24, 33, 29, 0.54);
+  border: 1px solid rgba(255, 255, 255, 0.22);
   border-radius: 999px;
   color: #fff;
   font-size: 0.83rem;
@@ -210,48 +202,6 @@ button {
   font-weight: 760;
   line-height: 1;
   padding: 9px 12px;
-}
-
-.gallery-control {
-  align-items: center;
-  background: rgba(255, 255, 255, 0.9);
-  border: 0;
-  border-radius: 50%;
-  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.22);
-  color: var(--ink);
-  cursor: pointer;
-  display: grid;
-  height: 42px;
-  justify-content: center;
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  transition:
-    background 160ms ease,
-    transform 160ms ease;
-  width: 42px;
-  z-index: 3;
-}
-
-.gallery-control span {
-  font-size: 2.2rem;
-  line-height: 0.8;
-  transform: translateY(-2px);
-}
-
-.gallery-control--prev {
-  left: 14px;
-}
-
-.gallery-control--next {
-  right: 14px;
-}
-
-.gallery-control:focus-visible,
-.gallery-control:hover {
-  background: #fff;
-  outline: 3px solid rgba(154, 63, 47, 0.36);
-  transform: translateY(-50%) scale(1.04);
 }
 
 .thumb-strip {
@@ -453,16 +403,6 @@ button {
   width: 100%;
 }
 
-.tour-preview-copy {
-  padding: 18px;
-}
-
-.tour-preview h3 {
-  font-size: 1.55rem;
-  line-height: 1.05;
-  margin: 0;
-}
-
 .info-section {
   background: var(--surface);
 }
@@ -630,6 +570,83 @@ dd {
   outline: 3px solid rgba(154, 63, 47, 0.28);
 }
 
+.lightbox {
+  background: #050505;
+  display: grid;
+  inset: 0;
+  position: fixed;
+  z-index: 100;
+}
+
+.lightbox[hidden] {
+  display: none;
+}
+
+.lightbox-toolbar {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+  padding: max(12px, env(safe-area-inset-top)) max(12px, env(safe-area-inset-right)) 0 max(12px, env(safe-area-inset-left));
+  pointer-events: none;
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: 2;
+}
+
+.lightbox-button {
+  align-items: center;
+  background: rgba(255, 255, 255, 0.92);
+  border: 0;
+  border-radius: 50%;
+  color: var(--ink);
+  cursor: pointer;
+  display: grid;
+  font-size: 1.35rem;
+  font-weight: 760;
+  height: 44px;
+  justify-content: center;
+  line-height: 1;
+  pointer-events: auto;
+  width: 44px;
+}
+
+.lightbox-button:focus-visible,
+.lightbox-button:hover {
+  outline: 3px solid rgba(255, 255, 255, 0.35);
+}
+
+.lightbox-viewport {
+  align-items: center;
+  display: grid;
+  height: 100svh;
+  justify-items: center;
+  overflow: auto;
+  overscroll-behavior: contain;
+  padding: 70px 12px 18px;
+  touch-action: pinch-zoom;
+  width: 100vw;
+}
+
+.lightbox-viewport img {
+  cursor: zoom-in;
+  display: block;
+  max-height: calc(100svh - 88px);
+  max-width: calc(100vw - 24px);
+  object-fit: contain;
+}
+
+.lightbox-viewport img.is-zoomed {
+  cursor: zoom-out;
+  max-height: none;
+  max-width: none;
+}
+
+.lightbox-viewport.is-zoomed {
+  align-items: start;
+  justify-items: start;
+}
+
 @media (min-width: 680px) {
   .site-header {
     min-height: 64px;
@@ -664,19 +681,6 @@ dd {
   .caption-meta span {
     font-size: 0.9rem;
     padding: 9px 12px;
-  }
-
-  .gallery-control {
-    height: 52px;
-    width: 52px;
-  }
-
-  .gallery-control--prev {
-    left: 24px;
-  }
-
-  .gallery-control--next {
-    right: 24px;
   }
 
   .thumb-strip {

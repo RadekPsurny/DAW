@@ -31,6 +31,9 @@
             width="1350"
             height="1800"
             alt="Průhled přes dveře mezi místnostmi bytu"
+            role="button"
+            tabindex="0"
+            aria-label="Otevřít fotku na celou obrazovku"
           >
           <figcaption class="gallery-caption">
             <p class="eyebrow">Pronájem v centru Brna</p>
@@ -41,15 +44,13 @@
               <span>Hlavák cca 3 minuty pěšky</span>
             </div>
           </figcaption>
-          <button class="gallery-control gallery-control--prev" type="button" aria-label="Předchozí fotka">
-            <span aria-hidden="true">‹</span>
-          </button>
-          <button class="gallery-control gallery-control--next" type="button" aria-label="Další fotka">
-            <span aria-hidden="true">›</span>
-          </button>
         </figure>
 
         <div class="thumb-strip" role="listbox" aria-label="Fotky bytu">
+          <button class="thumb is-active" type="button" data-photo-id="pruhled_bytem" role="option" aria-selected="true" aria-label="Průhled bytem">
+            <img src="assets/thumbs/pruhled_bytem.jpg" width="360" height="480" alt="">
+            <span>Průhled</span>
+          </button>
           <button class="thumb" type="button" data-photo-id="vetsi_pokoj" role="option" aria-selected="false" aria-label="Velký pokoj">
             <img src="assets/thumbs/vetsi_pokoj.jpg" width="480" height="360" alt="">
             <span>Velký pokoj</span>
@@ -62,10 +63,6 @@
             <img src="assets/thumbs/kuchyn.jpg" width="480" height="360" alt="">
             <span>Kuchyň</span>
           </button>
-          <button class="thumb is-active" type="button" data-photo-id="pruhled_bytem" role="option" aria-selected="true" aria-label="Průhled bytem">
-            <img src="assets/thumbs/pruhled_bytem.jpg" width="360" height="480" alt="">
-            <span>Průhled</span>
-          </button>
           <button class="thumb" type="button" data-photo-id="chodba" role="option" aria-selected="false" aria-label="Chodba">
             <img src="assets/thumbs/chodba.jpg" width="480" height="360" alt="">
             <span>Chodba</span>
@@ -77,6 +74,10 @@
           <button class="thumb" type="button" data-photo-id="zachod" role="option" aria-selected="false" aria-label="Záchod se sprchovým koutem">
             <img src="assets/thumbs/zachod.jpg" width="360" height="480" alt="">
             <span>Záchod</span>
+          </button>
+          <button class="thumb" type="button" data-photo-id="pudorys" role="option" aria-selected="false" aria-label="Půdorys">
+            <img src="assets/thumbs/pudorys.jpg" width="704" height="396" alt="">
+            <span>Půdorys</span>
           </button>
         </div>
       </section>
@@ -176,9 +177,6 @@
               height="1800"
               alt="Průhled přes dveře mezi místnostmi bytu"
             >
-            <div class="tour-preview-copy">
-              <h3 id="tourRoom">Průhled bytem</h3>
-            </div>
           </aside>
         </div>
       </section>
@@ -298,5 +296,19 @@
         </div>
       </section>
     </main>
+
+    <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Fotka na celou obrazovku" hidden>
+      <div class="lightbox-toolbar">
+        <button class="lightbox-button" id="lightboxZoom" type="button" aria-label="Přiblížit fotku">
+          <span aria-hidden="true">+</span>
+        </button>
+        <button class="lightbox-button" id="lightboxClose" type="button" aria-label="Zavřít fotku">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="lightbox-viewport" id="lightboxViewport">
+        <img id="lightboxImage" src="assets/photos/pruhled_bytem.jpg" alt="">
+      </div>
+    </div>
   </body>
 </html>

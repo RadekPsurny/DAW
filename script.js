@@ -48,30 +48,44 @@ const photos = [
     alt: "Samostatný záchod se sprchou, umyvadlem a bojlerem",
     caption: "Samostatné WC se sprchovým koutem.",
   },
+  {
+    id: "pudorys",
+    title: "Půdorys",
+    src: "assets/photos/pudorys.jpg",
+    alt: "Půdorys bytu Novobranská 20",
+    caption: "Půdorys",
+  },
 ];
 
 const galleryImage = document.querySelector("#galleryImage");
 const galleryCaption = document.querySelector("#galleryCaption");
 const gallery = document.querySelector(".gallery");
 const tourImage = document.querySelector("#tourImage");
-const tourRoom = document.querySelector("#tourRoom");
 const thumbStrip = document.querySelector(".thumb-strip");
 const thumbs = [...document.querySelectorAll(".thumb")];
 const hotspots = [...document.querySelectorAll(".hotspot")];
-const previousButton = document.querySelector(".gallery-control--prev");
-const nextButton = document.querySelector(".gallery-control--next");
+const lightbox = document.querySelector("#lightbox");
+const lightboxImage = document.querySelector("#lightboxImage");
+const lightboxViewport = document.querySelector("#lightboxViewport");
+const lightboxClose = document.querySelector("#lightboxClose");
+const lightboxZoom = document.querySelector("#lightboxZoom");
 
 let activeIndex = 0;
 const heroPhotoId = "pruhled_bytem";
+const tourPhotoIds = new Set(hotspots.map((hotspot) => hotspot.dataset.photoId));
 
 function getPhotoIndex(photoId) {
   const index = photos.findIndex((photo) => photo.id === photoId);
   return index >= 0 ? index : 0;
 }
 
+function activePhoto() {
+  return photos[activeIndex];
+}
+
 function setActivePhoto(nextIndex) {
   activeIndex = (nextIndex + photos.length) % photos.length;
-  const photo = photos[activeIndex];
+  const photo = activePhoto();
 
   galleryImage.src = photo.src;
   galleryImage.alt = photo.alt;
@@ -79,9 +93,10 @@ function setActivePhoto(nextIndex) {
   gallery.classList.toggle("gallery--simple", !isHeroPhoto);
   galleryCaption.textContent = isHeroPhoto ? photo.caption : photo.title;
 
-  tourImage.src = photo.src;
-  tourImage.alt = photo.alt;
-  tourRoom.textContent = photo.title;
+  if (tourPhotoIds.has(photo.id)) {
+    tourImage.src = photo.src;
+    tourImage.alt = photo.alt;
+  }
 
   thumbs.forEach((thumb) => {
     const isActive = thumb.dataset.photoId === photo.id;
@@ -98,6 +113,34 @@ function setActivePhoto(nextIndex) {
   });
 }
 
+function setLightboxZoom(isZoomed) {
+  lightboxImage.classList.toggle("is-zoomed", isZoomed);
+  lightboxViewport.classList.toggle("is-zoomed", isZoomed);
+  lightboxZoom.setAttribute("aria-label", isZoomed ? "Oddálit fotku" : "Přiblížit fotku");
+  lightboxZoom.querySelector("span").textContent = isZoomed ? "−" : "+";
+
+  if (!isZoomed) {
+    lightboxViewport.scrollTo({ left: 0, top: 0 });
+  }
+}
+
+function openLightbox() {
+  const photo = activePhoto();
+  lightboxImage.src = photo.src;
+  lightboxImage.alt = photo.alt;
+  lightbox.hidden = false;
+  document.body.classList.add("is-lightbox-open");
+  setLightboxZoom(false);
+  lightboxClose.focus();
+}
+
+function closeLightbox() {
+  lightbox.hidden = true;
+  document.body.classList.remove("is-lightbox-open");
+  setLightboxZoom(false);
+  galleryImage.focus();
+}
+
 thumbs.forEach((thumb) => {
   thumb.addEventListener("click", () => {
     setActivePhoto(getPhotoIndex(thumb.dataset.photoId));
@@ -110,20 +153,33 @@ hotspots.forEach((hotspot) => {
   });
 });
 
-previousButton.addEventListener("click", () => {
-  setActivePhoto(activeIndex - 1);
+galleryImage.addEventListener("click", openLightbox);
+
+galleryImage.addEventListener("keydown", (event) => {
+  if (event.key === "Enter" || event.key === " ") {
+    event.preventDefault();
+    openLightbox();
+  }
 });
 
-nextButton.addEventListener("click", () => {
-  setActivePhoto(activeIndex + 1);
+lightboxClose.addEventListener("click", closeLightbox);
+
+lightboxZoom.addEventListener("click", () => {
+  setLightboxZoom(!lightboxImage.classList.contains("is-zoomed"));
+});
+
+lightboxImage.addEventListener("click", () => {
+  setLightboxZoom(!lightboxImage.classList.contains("is-zoomed"));
+});
+
+lightboxViewport.addEventListener("click", (event) => {
+  if (event.target === lightboxViewport) {
+    closeLightbox();
+  }
 });
 
 document.addEventListener("keydown", (event) => {
-  if (event.key === "ArrowLeft") {
-    setActivePhoto(activeIndex - 1);
-  }
-
-  if (event.key === "ArrowRight") {
-    setActivePhoto(activeIndex + 1);
+  if (event.key === "Escape" && !lightbox.hidden) {
+    closeLightbox();
   }
 });
